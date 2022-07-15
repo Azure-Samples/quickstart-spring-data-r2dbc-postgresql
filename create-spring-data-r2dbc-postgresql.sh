@@ -16,7 +16,7 @@ echo "Creating resource group"
 az group create \
     --name $AZ_RESOURCE_GROUP \
     --location $AZ_LOCATION \
-    | jq
+    -o tsv
 
 echo "-----------------------------------------------------"
 echo "Creating PostgreSQL Server instance"
@@ -29,7 +29,7 @@ az postgres server create \
     --storage-size 5120 \
     --admin-user $AZ_POSTGRESQL_USERNAME \
     --admin-password $AZ_POSTGRESQL_PASSWORD \
-    | jq
+    -o tsv
 
 echo "-----------------------------------------------------"
 echo "Configuring PostgreSQL Server firewall"
@@ -41,7 +41,7 @@ az postgres server firewall-rule create \
     --server $AZ_DATABASE_NAME \
     --start-ip-address $AZ_LOCAL_IP_ADDRESS \
     --end-ip-address $AZ_LOCAL_IP_ADDRESS \
-    | jq
+    -o tsv
 
 echo "-----------------------------------------------------"
 echo "Configuring PostgreSQL Server database"
@@ -50,4 +50,4 @@ az postgres db create \
     --resource-group $AZ_RESOURCE_GROUP \
     --name demo \
     --server-name $AZ_DATABASE_NAME \
-    | jq
+    -o tsv
