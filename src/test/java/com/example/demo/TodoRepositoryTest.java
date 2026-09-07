@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.r2dbc.core.DatabaseClient;
+import org.springframework.r2dbc.core.DatabaseClient;
 import reactor.core.publisher.Hooks;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -24,7 +24,7 @@ public class TodoRepositoryTest {
     public void setUp() {
         Hooks.onOperatorDebug();
 
-        database.execute("DELETE FROM todo;").fetch()
+        database.sql("DELETE FROM todo;").fetch()
                 .rowsUpdated()
                 .as(StepVerifier::create)
                 .expectNextCount(1)
